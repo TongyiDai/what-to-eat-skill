@@ -1,0 +1,4 @@
+interface:
+  display_name: "吃什么 / What to Eat"
+  short_description: "结合口味、饭点和近期记录，推荐不重复的 Top 3 菜品"
+  default_prompt: "Use $what-to-eat to help me decide what to eat for this meal."
