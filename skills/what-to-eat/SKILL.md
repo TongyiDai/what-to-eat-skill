@@ -1,6 +1,6 @@
 ---
 name: what-to-eat
-description: Decide what to eat for breakfast, lunch, or dinner with personalized Top 3 dish recommendations based on taste, cuisine, allergies, dietary restrictions, goals, recent meals, recent recommendations, and feedback. Use for requests such as “吃什么”, “今天吃什么”, meal-specific suggestions, craving or avoidance requests, recording what the user ate, changing short- or long-term food preferences, refreshing rejected suggestions, or post-meal feedback. Recommend dishes only—not restaurants, merchants, live prices, ordering, medical diets, or full recipes.
+description: Decide what to eat for breakfast, lunch, or dinner with personalized Top 3 dish recommendations based on taste, cuisine, allergies, dietary restrictions, goals, recent meals, recent recommendations, and feedback. Optionally schedule proactive daily meal suggestions about 10 minutes before the user’s usual breakfast, lunch, and dinner times. Use for requests such as “吃什么”, “今天吃什么”, meal-specific suggestions, craving or avoidance requests, recording what the user ate, changing food preferences, refreshing rejected suggestions, post-meal feedback, or setting/changing meal recommendation reminders. Recommend dishes only—not restaurants, merchants, live prices, ordering, medical diets, or full recipes.
 ---
 
 # 吃什么 / What to Eat
@@ -25,6 +25,7 @@ If `profile.completed` is false, ask a lightweight onboarding question. Ask at m
 3. Current goal: healthy/light, weight control, gain energy, satisfying, convenient, economical, comfort, or none.
 4. Accepted spice level.
 5. Output preference: names only, reasons, pairings, or a simple method.
+6. Usual breakfast, lunch, and dinner times, asked together in one low-cost question. Explain that scheduled suggestions are optional.
 
 Do not block an immediate recommendation if enough safety information is known. Use reasonable defaults, label them briefly, and continue onboarding through later feedback. Save collected fields with:
 
@@ -33,6 +34,25 @@ python3 scripts/meal_memory.py update-profile --data '{"allergies":[],"dietary_r
 ```
 
 Set `"completed": true` once safety constraints plus at least two preference fields are known. Summarize the profile in one short sentence.
+
+## Set up scheduled suggestions
+
+When the user wants proactive suggestions, or after the core profile is complete and scheduled suggestions have not been configured:
+
+1. Ask: “你通常几点吃早饭、午饭和晚饭？” Accept one-line answers such as “8:00、12:30、19:00”. Ask separately only for missing meals.
+2. Confirm the user’s local timezone and that each suggestion will arrive about 10 minutes before the meal. If the timezone is already reliable from the environment, state it instead of asking.
+3. Save `meal_times` and `notification_lead_minutes` to the profile. Store times as 24-hour `HH:MM` strings.
+4. Create three active recurring Codex cron automations with the app’s automation tool, one for each meal. Use a daily wall-clock schedule at `meal time - lead minutes` in the user’s locale. Name them `吃什么｜早餐建议`, `吃什么｜午餐建议`, and `吃什么｜晚餐建议`.
+5. Use the current local workspace and local execution environment. Each automation prompt must be self-contained and say:
+   - use the installed `$what-to-eat` skill for the specified meal;
+   - read the local profile, recent meals, recommendations, and active short-term memory;
+   - apply hard constraints and repetition controls;
+   - generate and record a fresh Top 3;
+   - send the normal concise recommendation with feedback options 1–6;
+   - do not ask routine onboarding questions during a scheduled run unless safety-critical information is missing.
+6. Save the three returned automation IDs in `meal_automation_ids`. Never claim scheduling succeeded until all three automation calls succeed.
+
+When the user changes a meal time or lead time, update the existing automation by saved ID instead of creating a duplicate. When the user disables a meal reminder, pause or delete only that meal’s automation and clear its saved ID if deleted. Do not create scheduled suggestions without explicit user agreement.
 
 ## Recommend Top 3
 

@@ -9,7 +9,9 @@
 
 All files use UTF-8 and include a schema version. The script writes atomically. Do not edit them directly during normal use.
 
-Profile fields: `completed`, `taste_preference`, `cuisine_preference`, `spicy_level`, `oil_salt_level`, `health_goal`, `allergies`, `dietary_restrictions`, `disliked_foods`, `preferred_forms`, `disliked_forms`, `recommendation_style`, `created_at`, and `updated_at`.
+Profile fields: `completed`, `taste_preference`, `cuisine_preference`, `spicy_level`, `oil_salt_level`, `health_goal`, `allergies`, `dietary_restrictions`, `disliked_foods`, `preferred_forms`, `disliked_forms`, `recommendation_style`, `meal_times`, `notification_lead_minutes`, `meal_automation_ids`, `created_at`, and `updated_at`.
+
+`meal_times` maps `breakfast`, `lunch`, and `dinner` to local 24-hour `HH:MM` strings. `meal_automation_ids` stores the corresponding Codex automation IDs so later edits update existing schedules instead of creating duplicates.
 
 Meal records include `date`, `meal`, `actual_dish`, `source`, `satisfaction`, `tags`, and `feedback_text`.
 

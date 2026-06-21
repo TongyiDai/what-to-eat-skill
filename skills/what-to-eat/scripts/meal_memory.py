@@ -31,6 +31,9 @@ def default_profile():
         "oil_salt_level": None, "health_goal": [], "allergies": [],
         "dietary_restrictions": [], "disliked_foods": [], "preferred_forms": [],
         "disliked_forms": [], "recommendation_style": "dish_with_reason",
+        "meal_times": {"breakfast": None, "lunch": None, "dinner": None},
+        "notification_lead_minutes": 10,
+        "meal_automation_ids": {"breakfast": None, "lunch": None, "dinner": None},
         "created_at": t, "updated_at": t,
     }
 
@@ -61,6 +64,15 @@ class Store:
             raise SystemExit(f"Cannot read {path}: {exc}")
         if data.get("schema_version") != SCHEMA_VERSION:
             raise SystemExit(f"Unsupported schema version in {path}")
+        if name == "profile.json":
+            defaults = default_profile()
+            changed = False
+            for key, value in defaults.items():
+                if key not in data:
+                    data[key] = value
+                    changed = True
+            if changed:
+                self.save(name, data)
         return data
 
     def save(self, name, data):

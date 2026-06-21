@@ -12,6 +12,7 @@
 - 记录真实饮食、选择和满意度
 - 控制菜品、菜系、口味和形态重复
 - 理解“换一批”“最近别推荐面”“我最后吃了黄焖鸡”等自然表达
+- 可按你的三餐时间，在每餐前约 10 分钟主动发送当天建议
 
 它只推荐菜品，不推荐餐厅、外卖商家、实时价格或下单链接，也不提供医疗级饮食建议。
 
@@ -29,6 +30,6 @@ cp -R skills/what-to-eat ~/.codex/skills/what-to-eat
 
 ## English
 
-What to Eat gives personalized Top 3 dish recommendations for breakfast, lunch, and dinner. It learns from actual meals and feedback, respects allergies and dietary restrictions, and reduces repetition across dishes, cuisines, tastes, and meal forms.
+What to Eat gives personalized Top 3 dish recommendations for breakfast, lunch, and dinner. It learns from actual meals and feedback, respects allergies and dietary restrictions, reduces repetition, and can proactively send suggestions about 10 minutes before each usual meal.
 
 Copy `skills/what-to-eat` into `~/.codex/skills/what-to-eat`, reopen Codex, and ask “What should I eat for lunch?” Local food history stays under `~/.codex/state/what-to-eat/`.
