@@ -79,8 +79,8 @@ python3 scripts/meal_memory.py record-recommendation --meal lunch --dishes '[{"d
 Interpret `1`–`6` against the latest unresolved recommendation batch.
 
 - `1`/`2`/`3` or a named choice: record the chosen dish as a selected meal with `--source selected_top3`. Confirm it is provisionally treated as eaten, and allow later correction.
-- `4` or “换一批”: ask one reason only—too oily, too light, too spicy, no rice, no noodles, recently tired of it, or no reason—then generate a new batch.
-- `5` or “都不想吃”: ask one state only—indulgent, light/comfortable, fast/convenient, hot, or low appetite—then generate a new batch.
+- `4` or “换一批”: ask one reason only—too oily, too light, too spicy, no rice, no noodles, recently tired of it, or no reason. Run `mark-latest-action --action refresh --feedback-text '原因'`, then generate a new batch.
+- `5` or “都不想吃”: ask one state only—indulgent, light/comfortable, fast/convenient, hot, or low appetite. Run `mark-latest-action --action reject_all --feedback-text '状态'`, then generate a new batch.
 - `6` or “我吃了别的”: ask what was actually eaten, unless already stated.
 - Natural-language actual meal: tag and record it immediately. Actual behavior outweighs a prior selection.
 - Short-term phrases such as “最近别推荐面” or “这周少吃辣”: save with `add-memory --scope short_term` and an expiry.

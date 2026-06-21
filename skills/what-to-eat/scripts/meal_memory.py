@@ -166,6 +166,18 @@ def record_meal(store, args):
     print(json.dumps(record, ensure_ascii=False, indent=2))
 
 
+def mark_latest_action(store, args):
+    data = store.load("recommendations.json")
+    for batch in reversed(data["batches"]):
+        if batch["user_action"] == "no_response":
+            batch["user_action"] = args.action
+            batch["feedback_text"] = args.feedback_text
+            store.save("recommendations.json", data)
+            print(json.dumps(batch, ensure_ascii=False, indent=2))
+            return
+    raise SystemExit("No unresolved recommendation batch exists")
+
+
 def add_memory(store, args):
     data = store.load("memory.json")
     created = now()
@@ -204,6 +216,7 @@ def build_parser():
     p = sub.add_parser("update-profile"); p.add_argument("--data", required=True); p.set_defaults(func=update_profile)
     p = sub.add_parser("record-recommendation"); p.add_argument("--meal", choices=sorted(MEALS), required=True); p.add_argument("--dishes", required=True); p.set_defaults(func=record_recommendation)
     p = sub.add_parser("record-meal"); p.add_argument("--meal", choices=sorted(MEALS), required=True); p.add_argument("--dish", required=True); p.add_argument("--source", choices=["selected_top3", "user_input", "post_meal_checkin"], required=True); p.add_argument("--satisfaction", choices=sorted(SATISFACTIONS), default="unknown"); p.add_argument("--tags", default="{}"); p.add_argument("--feedback-text"); p.set_defaults(func=record_meal)
+    p = sub.add_parser("mark-latest-action"); p.add_argument("--action", choices=["refresh", "reject_all"], required=True); p.add_argument("--feedback-text"); p.set_defaults(func=mark_latest_action)
     p = sub.add_parser("add-memory"); p.add_argument("--scope", choices=["current_meal", "short_term"], required=True); p.add_argument("--kind", choices=["prefer", "avoid", "exclude", "goal"], required=True); p.add_argument("--value", required=True); p.add_argument("--days", type=int, default=7); p.set_defaults(func=add_memory)
     p = sub.add_parser("rate-latest-meal"); p.add_argument("--satisfaction", choices=sorted(SATISFACTIONS - {"unknown"}), required=True); p.set_defaults(func=rate_latest)
     return parser
