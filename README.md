@@ -4,18 +4,8 @@
 
 它会结合你的口味、忌口、当前饭点、近期真实饮食和反馈，给出三个具体菜品。它会记住你实际吃了什么，避免连续推荐同一道菜、同一菜系或同一种主食形态。
 
-## 三张图看懂它怎么工作
-
 <p align="center">
   <img src="assets/boards/hard-constraints.svg" alt="先满足忌口和饭点等硬约束，再给出三道菜" width="900" />
-</p>
-
-<p align="center">
-  <img src="assets/boards/feedback-loop.svg" alt="真实选择和满意度会改变下一次推荐" width="900" />
-</p>
-
-<p align="center">
-  <img src="assets/boards/avoid-repetition.svg" alt="记住菜品、菜系和主食形态，控制推荐重复" width="900" />
 </p>
 
 ## 能做什么
@@ -28,7 +18,15 @@
 - 理解“换一批”“最近别推荐面”“我最后吃了黄焖鸡”等自然表达
 - 可按你的三餐时间，在每餐前约 10 分钟主动发送当天建议
 
+<p align="center">
+  <img src="assets/boards/feedback-loop.svg" alt="真实选择和满意度会改变下一次推荐" width="900" />
+</p>
+
 它只推荐菜品，不推荐餐厅、外卖商家、实时价格或下单链接，也不提供医疗级饮食建议。
+
+<p align="center">
+  <img src="assets/boards/avoid-repetition.svg" alt="记住菜品、菜系和主食形态，控制推荐重复" width="900" />
+</p>
 
 ## 安装
 
