@@ -26,6 +26,12 @@ cp -R skills/what-to-eat ~/.codex/skills/what-to-eat
 
 重新打开 Codex 后，可以直接说“中午吃什么？”，也可以显式调用 `$what-to-eat`。
 
+安装后可运行 `python3 skills/what-to-eat/scripts/doctor.py --json` 检查脚本和状态路径。定时建议依赖 Agent 宿主的自动化能力；没有该能力时仍可手动调用，不能声称提醒已创建。
+
+### Agent 使用说明
+
+每次推荐前先读取本地状态快照。状态默认保存在 `~/.codex/state/what-to-eat/`，测试时使用临时 `--state-dir`。脚本写入成功后才能报告画像、饮食记录或反馈已保存。定时任务需要宿主自动化能力，并且必须保存和复用任务 ID，避免重复创建。详见 [`skills/what-to-eat/references/runtime.md`](skills/what-to-eat/references/runtime.md)。
+
 饮食画像和记录默认只保存在本机的 `~/.codex/state/what-to-eat/`，不会提交到这个仓库。
 
 ## English
