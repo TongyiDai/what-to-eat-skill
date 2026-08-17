@@ -30,7 +30,7 @@
 用户说“我吃了别的”时，以实际饮食记录更新状态，覆盖之前的选择记录。
 
 <p align="center">
-  <img src="assets/boards/hard-constraints.svg" alt="先满足忌口和饭点等硬约束，再给出三道菜" width="900" />
+  <img src="assets/boards/hard-constraints.svg?v=2" alt="先满足忌口和饭点等硬约束，再给出三道菜" width="900" />
 </p>
 
 ## 能做什么
@@ -50,7 +50,7 @@
 它只推荐菜品，不推荐餐厅、外卖商家、实时价格或下单链接，也不提供医疗级饮食建议。
 
 <p align="center">
-  <img src="assets/boards/avoid-repetition.svg" alt="记住菜品、菜系和主食形态，控制推荐重复" width="900" />
+  <img src="assets/boards/avoid-repetition.svg?v=2" alt="记住菜品、菜系和主食形态，控制推荐重复" width="900" />
 </p>
 
 ## 安装
