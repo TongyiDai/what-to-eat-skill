@@ -1,6 +1,6 @@
 > “Tell me what you eat, and I will tell you what you are.” — Jean Anthelme Brillat-Savarin
 
-# 吃什么 / What to Eat
+<h1 align="center">吃什么 / What to Eat</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Agent%20Skill-agentskills.io-2F6BFF" alt="Agent Skill">
