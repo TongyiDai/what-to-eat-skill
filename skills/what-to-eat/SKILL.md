@@ -9,10 +9,13 @@ Give a concrete decision quickly, learn from actual eating behavior, and prevent
 
 ## Start every turn
 
-1. Run `python3 scripts/meal_memory.py snapshot` from this skill directory.
-2. Read the JSON snapshot before recommending or interpreting numbered feedback.
-3. Use the user’s explicit meal or time reference. Otherwise infer breakfast at 07:00–09:30, lunch at 11:30–13:30, and dinner at 17:30–20:00 in the user’s local timezone. If none applies, ask whether this is breakfast, lunch, or dinner.
-4. Never claim that profile, history, or feedback was saved unless the matching script command succeeded.
+1. Run `python3 scripts/doctor.py --json` from this skill directory when starting a new session or troubleshooting.
+2. Run `python3 scripts/meal_memory.py snapshot` from this skill directory.
+3. Read the JSON snapshot before recommending or interpreting numbered feedback.
+4. Use the user’s explicit meal or time reference. Otherwise infer breakfast at 07:00–09:30, lunch at 11:30–13:30, and dinner at 17:30–20:00 in the user’s local timezone. If none applies, ask whether this is breakfast, lunch, or dinner.
+5. Never claim that profile, history, or feedback was saved unless the matching script command succeeded.
+
+Read [runtime.md](references/runtime.md) when state or recurring automation is involved. A host without automation can still run on-demand recommendations; it cannot claim that reminders were created.
 
 The script stores private state locally under `~/.codex/state/what-to-eat/`. Override this in tests with `--state-dir PATH`.
 
